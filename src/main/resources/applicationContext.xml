@@ -8,6 +8,21 @@
 
     <aop:aspectj-autoproxy/>
 
+    <!--<aop:config>
+        &lt;!&ndash;这里自定义切入点&ndash;&gt;
+        <aop:pointcut id="" expression=""></aop:pointcut>
+        <aop:pointcut id="" expression=""></aop:pointcut>
+
+        &lt;!&ndash;自定义切面&ndash;&gt;
+        <aop:aspect ref="myAspect">
+            &lt;!&ndash;当前这个切面的切入点&ndash;&gt;
+            <aop:pointcut id="" expression=""></aop:pointcut>
+            &lt;!&ndash;before之类的都在这里配置&ndash;&gt;
+            <aop:before method="" pointcut-ref=""></aop:before>
+            <aop:after method="" pointcut-ref="" arg-names=""></aop:after>
+        </aop:aspect>
+    </aop:config>-->
+
     <!--注册目标类-->
     <bean id="studentServiceTarget" class="com.xuanzilan.ssm.spring4Aop.service.impl.StudentServiceImpl"/>
     <bean id="student" class="com.xuanzilan.ssm.spring4Aop.bean.Student"/>

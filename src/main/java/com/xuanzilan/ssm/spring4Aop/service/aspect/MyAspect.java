@@ -64,7 +64,8 @@ public class MyAspect {
 
     /**
      * 定义切入点,切入点表达式还是在注解中，方法体可以为空
+     * 私有方法即可
      */
     @Pointcut("execution(* *..service.*.*(..))")
-    public void myPointCut(){}
+    private void myPointCut(){}
 }
