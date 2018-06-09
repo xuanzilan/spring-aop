@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.xuanzilan.ssm.*"/>
+
+    <!--注意有一个最核心的问题，bean中private int id之类的都是属于变量，而setAge中的set后面部分的首字母小写才是对象属性，所有能操作的也是这个属性-->
+
+    <!--注册service类-->
+    <!--这里实际对应的操作：SomeServiceImpl myService = new SomeServiceImpl();-->
+    <!--默认Bean的装配方式为调用的bean类的无参构造器，如果声明了带参构造器，则一定主要要同时声明无参构造器，否则在使用spring容器时会报错，
+    底层其实是通过反射调用getInstance，所以需要无参构造器-->
+    <!--<bean id="myService" class="com.xuanzilan.ssm.spring4.service.impl.SomeServiceImpl"/>-->
+    <!--<bean id="userService" class="com.xuanzilan.ssm.spring4.service.impl.UserServiceImpl"></bean>-->
+
+    <!--设置init-method和destroy-method方法，前者意味着初始化刚刚结束，后者意味着对象销毁，并不是真正的销毁，因为销毁是spring统一控制的-->
+    <!--<bean id="student" class="com.xuanzilan.ssm.spring4.bean.Student" init-method="setUp" destroy-method="destroy">
+    </bean>-->
+
+    <!--bean后处理器-->
+    <!--<bean class="com.xuanzilan.ssm.spring4.bean.myBeanPostProcess"></bean>-->
+
+
+    <!--设值注入，先调用无参构造器后，调用setter方法进行设值注入，这两个过程也是spring bean声明周期的前两步-->
+    <bean id="student1" class="com.xuanzilan.ssm.spring4.bean.Student">
+        <property name="sid" value="1"></property>
+        <property name="name" value="张三"></property>
+        <property name="age" value="3"></property>
+    </bean>
+
+    <!--构造注入，利用带参构造器注入,再次强调创建带参构造器时需要添加一个无参构造器已避免设值注入时异常或直接调用的异常-->
+    <bean id="student" class="com.xuanzilan.ssm.spring4.bean.Student">
+        <constructor-arg name="sid" value="2"></constructor-arg>
+        <constructor-arg name="age" value="4"></constructor-arg>
+        <constructor-arg name="name" value="李四"></constructor-arg>
+    </bean>
+
+    <!--通过工厂方式获取serviceBean-->
+    <bean id="serviceFactory" class="com.xuanzilan.ssm.spring4.factory.ServiceFactory"></bean>
+    <bean id="service1" factory-bean="serviceFactory" factory-method="getSomeService"></bean>
+
+
+    <!--通过工厂静态方法获取bean，注意，这里的class是工厂的class，没有factory-bean方法，只有factory-method
+    对比下可以看出，当有factory-method时，class是工厂的class，且不会调用工厂的无参构造器
+                    没有factory-method时，调用的是class中的无参构造器（bean的无参构造器，class中就应该写的是bean类而不是factory类）-->
+    <bean id="service2"  class="com.xuanzilan.ssm.spring4.factory.ServiceFactory" factory-method="getSomeServiceStatic"></bean>
+</beans>
