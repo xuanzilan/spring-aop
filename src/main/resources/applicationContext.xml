@@ -16,8 +16,27 @@
     <bean id="myMethodInterceptor" class="com.xuanzilan.ssm.spring4Aop.service.advice.myMethodInterceptor"/>
     <bean id="myThrowsAdvice" class="com.xuanzilan.ssm.spring4Aop.service.advice.myThrowsAdvice"/>
 
+
+    <!--注册advisor-->
+    <!--使用Name匹配，注意advice字段应用使用ref制定advice-->
+    <!--mappedNames也可以使用do*这类型的表达式-->
+    <bean id="myNameAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="advice" ref="myAfterReturningAdvice"></property>
+        <property name="mappedNames" value="doOther,doHello"></property>
+    </bean>
+    <!--使用正则表达式匹配，注意advice字段应用使用ref制定advice-->
+    <!--正则表达式基础：.任意单个字符，*前一个字符出现大于等于0次，+前一个字符出现大于等于1次-->
+    <!--注意：这里的pattern中的value，方法名应包含类名及包名才能匹配到，所以前面也用了.*-->
+    <bean id="myRegexpAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="myAfterReturningAdvice"></property>
+        <property name="pattern" value=".*doO.*"></property>
+    </bean>
+
+
+
+
     <!--注册代理工厂类-->
-    <!--需要三个，目标方法，实现的接口，advice通知-->
+    <!--这里是advice工厂类，需要三个，目标方法，实现的接口，advice通知,advice默认对所有方法生效，如果想过滤方法只能在advice实现类中修改-->
     <!--注掉了接口也能使用，当目标类有接口时，aop底层使用了jdk动态代理，没有接口时自动使用了cglib代理-->
     <!--interceptorNames这里是s，所以可以传入多个-->
     <bean id="studentServiceProxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -25,6 +44,21 @@
         <!--<property name="interfaces" value="com.xuanzilan.ssm.spring4Aop.service.IStudentService"></property>-->
         <property name="interceptorNames" value="myMethodBeforeAdvice,myAfterReturningAdvice,myMethodInterceptor,myThrowsAdvice"/>
     </bean>
+
+
+    <!--这里是advisor工厂类-->
+    <!--注掉了接口也能使用，当目标类有接口时，aop底层使用了jdk动态代理，没有接口时自动使用了cglib代理-->
+    <!--interceptorNames替换成advisor-->
+    <bean id="studentServiceAdvisorProxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="studentServiceTarget"></property>
+        <!--使用名字匹配-->
+        <!--<property name="interceptorNames" value="myNameAdvisor"/>-->
+        <!--使用正则表达式匹配-->
+        <property name="interceptorNames" value="myRegexpAdvisor"/>
+    </bean>
+
+
+
 
 
 </beans>

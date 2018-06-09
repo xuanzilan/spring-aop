@@ -70,4 +70,19 @@ public class StudentTest {
         IStudentService student = (IStudentService) ac.getBean("studentServiceProxyFactory");
         student.doThrow();
     }
+
+    /**
+     * 使用advisor
+     */
+    @Test
+    public void test08() throws Exception {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        IStudentService student = (IStudentService) ac.getBean("studentServiceAdvisorProxyFactory");
+        System.out.println("====================================");
+        student.doSome();
+        System.out.println("====================================");
+        student.doOther();
+        System.out.println("====================================");
+        student.doHello("Bob");
+    }
 }
