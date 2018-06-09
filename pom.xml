@@ -51,11 +51,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>4.3.17.RELEASE</version>
-        </dependency>-->
+        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -81,11 +81,13 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/org.aopalliance/com.springsource.org.aopalliance -->
         <dependency>
-            <groupId>aopalliance</groupId>
-            <artifactId>aopalliance</artifactId>
-            <version>1.0</version>
+            <groupId>org.aopalliance</groupId>
+            <artifactId>com.springsource.org.aopalliance</artifactId>
+            <version>1.0.0</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>

@@ -85,4 +85,19 @@ public class StudentTest {
         System.out.println("====================================");
         student.doHello("Bob");
     }
+
+    /**
+     * 使用aspectJ
+     */
+    @Test
+    public void test09() throws Exception {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        IStudentService student = (IStudentService) ac.getBean("studentServiceTarget");
+        System.out.println("====================================");
+        student.doSome();
+        System.out.println("====================================");
+        student.doOther();
+        System.out.println("====================================");
+        student.doHello("Bob");
+    }
 }

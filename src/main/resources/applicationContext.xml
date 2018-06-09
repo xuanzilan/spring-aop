@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-          http://www.springframework.org/schema/beans
-          http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <aop:aspectj-autoproxy/>
 
     <!--注册目标类-->
     <bean id="studentServiceTarget" class="com.xuanzilan.ssm.spring4Aop.service.impl.StudentServiceImpl"/>
     <bean id="student" class="com.xuanzilan.ssm.spring4Aop.bean.Student"/>
+
+    <!--注册aspectJ类-->
+    <bean id="myAspect" class="com.xuanzilan.ssm.spring4Aop.service.aspect.MyAspect"></bean>
 
 
     <!--注册advice-->
