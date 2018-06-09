@@ -1,4 +1,4 @@
-package com.xuanzilan.ssm.spring4.bean;
+package com.xuanzilan.ssm.spring4Aop.bean;
 
 public class Student {
     private int sid;
